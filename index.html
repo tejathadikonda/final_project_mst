@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Index Page</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+    }
+
+    .container {
+        width: 80%;
+        margin: 50px auto;
+        text-align: center;
+    }
+
+    h2 {
+        color: #333;
+    }
+
+    .lab-table {
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 10px; /* Add border radius */
+        overflow: hidden; /* Ensure border radius is applied correctly */
+    }
+
+    .lab-table th,
+    .lab-table td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .lab-table th {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .lab-table a {
+        text-decoration: none;
+        color: #333;
+    }
+
+    .lab-table a:hover {
+        font-weight: bold;
+    }
+
+    .register-no {
+        margin-bottom: 20px;
+    }
+
+    .time-dropdown {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    select {
+        padding: 8px;
+        border-radius: 4px;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h2>Mean Stack Technologies - Lab</h2>
+        <p class="register-no">Register No: <span id="registerNoDisplay"></span></p>
+        <table class="lab-table">
+            <thead>
+                <tr>
+                    <th>Labs</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a href="https://tejathadikonda.github.io/time_table/" target="_blank">Lab 1 - Time Table</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://tejathadikonda.github.io/mst_lab1/" target="_blank">Lab 2 - Bio Data Display</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://tejathadikonda.github.io/calculator_mst/" target="_blank">Lab 3 - Simple Calculator</a></td>
+                </tr>
+                <!-- Add more labs as needed -->
+            </tbody>
+        </table>
+        <div class="time-dropdown">
+            <label for="sessionTime">Select Session Time:</label>
+            <select id="sessionTime" name="sessionTime">
+                <option value="10">10 Seconds</option>
+                <option value="30">30 Seconds</option>
+                <option value="60">1 Minute</option>
+                <option value="120">2 Minutes</option>
+                <option value="300">5 Minutes</option>
+                <!-- Add more options as needed -->
+            </select>
+        </div>
+    </div>
+
+    <script>
+        // Function to retrieve cookie value by name
+        function getCookie(cookieName) {
+            var name = cookieName + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var cookieArray = decodedCookie.split(';');
+            for(var i = 0; i < cookieArray.length; i++) {
+                var cookie = cookieArray[i];
+                while (cookie.charAt(0) == ' ') {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(name) == 0) {
+                    return cookie.substring(name.length, cookie.length);
+                }
+            }
+            return "";
+        }
+
+        // Retrieve register number from cookie
+        var registerNo = getCookie("registerNo");
+
+        // Display register number on the page
+        document.getElementById('registerNoDisplay').innerText = registerNo;
+
+        // Function to open lab in new tab and set session expire time
+        function openLabAndSetSessionExpireTime(labPage, sessionTime) {
+            var labWindow = window.open(labPage, '_blank');
+            setTimeout(function() {
+                alert("Session expired. Closing lab and redirecting to index page.");
+                labWindow.close(); // Close lab window
+                window.location.href = "index.html"; // Redirect to index page
+            }, sessionTime * 1000); // Convert session time to milliseconds
+        }
+
+        // Redirect to lab page with session expire time
+        document.querySelectorAll('.lab-table a').forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default link behavior
+                var sessionTime = document.getElementById("sessionTime").value;
+                var labPage = this.getAttribute('href');
+                openLabAndSetSessionExpireTime(labPage, sessionTime); // Open lab and set session expire time
+            });
+        });
+    </script>
+</body>
+</html>

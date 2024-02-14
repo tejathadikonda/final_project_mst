@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Page</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+    }
+
+    .container {
+        width: 50%;
+        margin: 100px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    button:active {
+        background-color: #3e8e41;
+    }
+</style>
+<script>
+    // Function to set cookie
+    function setCookie(cookieName, cookieValue) {
+        document.cookie = cookieName + "=" + cookieValue + ";path=/";
+    }
+
+    // Function to redirect to index page after login and set cookie
+    function redirectToIndexPage() {
+        var registerNo = document.getElementById("registerNo").value;
+        // Set cookie with register number
+        setCookie("registerNo", registerNo);
+        // Redirect to index page
+        window.location.href = "index.html";
+    }
+</script>
+</head>
+<body>
+    <div class="container">
+        <h2>Mean Stack Technologies - Lab</h2>
+        <label for="registerNo">Register No:</label>
+        <input type="text" id="registerNo" name="registerNo" required>
+        <button type="button" onclick="redirectToIndexPage()">Login</button>
+    </div>
+</body>
+</html>
